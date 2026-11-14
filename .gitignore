@@ -1,0 +1,11 @@
+.gradle/
+build/
+local.properties
+.idea/
+*.iml
+.kotlin/
+_reports/
+build.log
+*.p12
+*.jks
+captures/

@@ -1,0 +1,85 @@
+name: build
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: "Publish or refresh the GitHub release for the current version"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/checkout@v4
+        with:
+          ref: ci-reports
+          path: _reports
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - name: Decode release keystore (only when the secrets exist)
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+        run: |
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/release.p12"
+            echo "CELLAROO_KEYSTORE_FILE=$RUNNER_TEMP/release.p12" >> "$GITHUB_ENV"
+          fi
+
+      - name: Test and assemble
+        id: gradle
+        env:
+          CELLAROO_KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          CELLAROO_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          CELLAROO_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+        run: |
+          set -o pipefail
+          chmod +x gradlew
+          ./gradlew --no-daemon --continue \
+            :core:test :app:testDebugUnitTest \
+            :app:assembleDebug :app:assemblePreview :app:assembleRelease 2>&1 | tee build.log
+
+      - name: Screenshots (never fails the build)
+        if: always() && hashFiles('app/src/test/java/app/cellaroo/ScreenshotTests.kt') != ''
+        continue-on-error: true
+        run: ./gradlew --no-daemon :app:recordRoborazziDebug 2>&1 | tee screenshots.log
+
+      - name: Write report to ci-reports
+        if: always()
+        env:
+          BUILD_OUTCOME: ${{ steps.gradle.outcome }}
+        run: bash ci/report.sh
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: apks
+          path: app/build/outputs/apk/**/*.apk
+          if-no-files-found: ignore
+
+      - name: Publish release when the version is new
+        if: success() && github.ref == 'refs/heads/main'
+        env:
+          FORCE: ${{ inputs.publish }}
+        run: bash ci/release.sh

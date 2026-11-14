@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- bottle -->
+    <path android:fillColor="#FFE9C46A"
+        android:pathData="M49,26h10v14c0,3 7,6 7,14v24c0,3 -2,5 -5,5H47c-3,0 -5,-2 -5,-5V54c0,-8 7,-11 7,-14z" />
+    <!-- label -->
+    <path android:fillColor="#FF4A1220" android:pathData="M45,58h18v14h-18z" />
+    <path android:fillColor="#FFE9C46A" android:pathData="M48,62h12v2h-12zM48,66h8v2h-8z" />
+</vector>

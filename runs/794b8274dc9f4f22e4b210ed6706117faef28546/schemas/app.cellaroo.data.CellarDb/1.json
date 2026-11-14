@@ -1,0 +1,725 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "3ba8c6927b5b507d114cb761074f97e7",
+    "entities": [
+      {
+        "tableName": "wines",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `producer` TEXT NOT NULL, `wineName` TEXT NOT NULL, `appellationRegion` TEXT NOT NULL, `country` TEXT NOT NULL, `vintage` INTEGER, `wineType` TEXT NOT NULL, `grapesJson` TEXT NOT NULL, `abvPercent` REAL, `bottleSizeMl` INTEGER NOT NULL, `normalizedKey` TEXT NOT NULL, `drinkFromYear` INTEGER, `peakStartYear` INTEGER, `peakEndYear` INTEGER, `drinkUntilYear` INTEGER, `windowSource` TEXT, `windowUpdatedAt` INTEGER, `servingMode` TEXT, `servingReason` TEXT, `servingTempC` INTEGER, `decantMinutes` INTEGER, `servingSource` TEXT, `pairingsJson` TEXT NOT NULL, `pairingNotes` TEXT, `pairingSource` TEXT, `styleSummary` TEXT, `referenceNotes` TEXT, `myNotes` TEXT, `vintageSummary` TEXT, `stickerNote` TEXT, `marketPriceUsd` REAL, `marketPriceAsOf` INTEGER, `marketPriceSource` TEXT, `labelImage` TEXT, `createdAt` INTEGER NOT NULL, `updatedAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "producer",
+            "columnName": "producer",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineName",
+            "columnName": "wineName",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "appellationRegion",
+            "columnName": "appellationRegion",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "country",
+            "columnName": "country",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "vintage",
+            "columnName": "vintage",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "wineType",
+            "columnName": "wineType",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "grapesJson",
+            "columnName": "grapesJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "abvPercent",
+            "columnName": "abvPercent",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "bottleSizeMl",
+            "columnName": "bottleSizeMl",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "normalizedKey",
+            "columnName": "normalizedKey",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "drinkFromYear",
+            "columnName": "drinkFromYear",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "peakStartYear",
+            "columnName": "peakStartYear",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "peakEndYear",
+            "columnName": "peakEndYear",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "drinkUntilYear",
+            "columnName": "drinkUntilYear",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "windowSource",
+            "columnName": "windowSource",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "windowUpdatedAt",
+            "columnName": "windowUpdatedAt",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "servingMode",
+            "columnName": "servingMode",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "servingReason",
+            "columnName": "servingReason",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "servingTempC",
+            "columnName": "servingTempC",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "decantMinutes",
+            "columnName": "decantMinutes",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "servingSource",
+            "columnName": "servingSource",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pairingsJson",
+            "columnName": "pairingsJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pairingNotes",
+            "columnName": "pairingNotes",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "pairingSource",
+            "columnName": "pairingSource",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "styleSummary",
+            "columnName": "styleSummary",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "referenceNotes",
+            "columnName": "referenceNotes",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "myNotes",
+            "columnName": "myNotes",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "vintageSummary",
+            "columnName": "vintageSummary",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "stickerNote",
+            "columnName": "stickerNote",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "marketPriceUsd",
+            "columnName": "marketPriceUsd",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "marketPriceAsOf",
+            "columnName": "marketPriceAsOf",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "marketPriceSource",
+            "columnName": "marketPriceSource",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "labelImage",
+            "columnName": "labelImage",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedAt",
+            "columnName": "updatedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_wines_normalizedKey",
+            "unique": false,
+            "columnNames": [
+              "normalizedKey"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_wines_normalizedKey` ON `${TABLE_NAME}` (`normalizedKey`)"
+          }
+        ]
+      },
+      {
+        "tableName": "bottles",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `wineId` INTEGER NOT NULL, `locationId` INTEGER, `status` TEXT NOT NULL, `purchasePriceUsd` REAL, `purchaseDate` INTEGER, `purchaseSource` TEXT, `cropImage` TEXT, `addedVia` TEXT NOT NULL, `addedAt` INTEGER NOT NULL, `removedAt` INTEGER, FOREIGN KEY(`wineId`) REFERENCES `wines`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`locationId`) REFERENCES `locations`(`id`) ON UPDATE NO ACTION ON DELETE SET NULL )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineId",
+            "columnName": "wineId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "locationId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "status",
+            "columnName": "status",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "purchasePriceUsd",
+            "columnName": "purchasePriceUsd",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "purchaseDate",
+            "columnName": "purchaseDate",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "purchaseSource",
+            "columnName": "purchaseSource",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "cropImage",
+            "columnName": "cropImage",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "addedVia",
+            "columnName": "addedVia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "addedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "removedAt",
+            "columnName": "removedAt",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_bottles_wineId",
+            "unique": false,
+            "columnNames": [
+              "wineId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bottles_wineId` ON `${TABLE_NAME}` (`wineId`)"
+          },
+          {
+            "name": "index_bottles_locationId",
+            "unique": false,
+            "columnNames": [
+              "locationId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bottles_locationId` ON `${TABLE_NAME}` (`locationId`)"
+          },
+          {
+            "name": "index_bottles_status",
+            "unique": false,
+            "columnNames": [
+              "status"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_bottles_status` ON `${TABLE_NAME}` (`status`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "wines",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "wineId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "locations",
+            "onDelete": "SET NULL",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "locationId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "locations",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `sortOrder` INTEGER NOT NULL, `description` TEXT, `lastReconciledAt` INTEGER)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "name",
+            "columnName": "name",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sortOrder",
+            "columnName": "sortOrder",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "lastReconciledAt",
+            "columnName": "lastReconciledAt",
+            "affinity": "INTEGER"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "critic_scores",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `wineId` INTEGER NOT NULL, `source` TEXT NOT NULL, `sourceLabel` TEXT NOT NULL, `rawText` TEXT NOT NULL, `score100` REAL NOT NULL, `rangeLow100` REAL, `rangeHigh100` REAL, `origin` TEXT NOT NULL, `addedAt` INTEGER NOT NULL, FOREIGN KEY(`wineId`) REFERENCES `wines`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineId",
+            "columnName": "wineId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "source",
+            "columnName": "source",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sourceLabel",
+            "columnName": "sourceLabel",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rawText",
+            "columnName": "rawText",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "score100",
+            "columnName": "score100",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rangeLow100",
+            "columnName": "rangeLow100",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "rangeHigh100",
+            "columnName": "rangeHigh100",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "origin",
+            "columnName": "origin",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "addedAt",
+            "columnName": "addedAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_critic_scores_wineId",
+            "unique": false,
+            "columnNames": [
+              "wineId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_critic_scores_wineId` ON `${TABLE_NAME}` (`wineId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "wines",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "wineId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "consumption_log",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `bottleId` INTEGER NOT NULL, `wineId` INTEGER NOT NULL, `wineSnapshotTitle` TEXT NOT NULL, `consumedDate` INTEGER NOT NULL, `outcome` TEXT NOT NULL, `pairedWith` TEXT, `userRating` REAL, `personalNotes` TEXT, FOREIGN KEY(`wineId`) REFERENCES `wines`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "bottleId",
+            "columnName": "bottleId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineId",
+            "columnName": "wineId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineSnapshotTitle",
+            "columnName": "wineSnapshotTitle",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "consumedDate",
+            "columnName": "consumedDate",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "outcome",
+            "columnName": "outcome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "pairedWith",
+            "columnName": "pairedWith",
+            "affinity": "TEXT"
+          },
+          {
+            "fieldPath": "userRating",
+            "columnName": "userRating",
+            "affinity": "REAL"
+          },
+          {
+            "fieldPath": "personalNotes",
+            "columnName": "personalNotes",
+            "affinity": "TEXT"
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        },
+        "indices": [
+          {
+            "name": "index_consumption_log_wineId",
+            "unique": false,
+            "columnNames": [
+              "wineId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_consumption_log_wineId` ON `${TABLE_NAME}` (`wineId`)"
+          },
+          {
+            "name": "index_consumption_log_bottleId",
+            "unique": false,
+            "columnNames": [
+              "bottleId"
+            ],
+            "orders": [],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_consumption_log_bottleId` ON `${TABLE_NAME}` (`bottleId`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "wines",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "wineId"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "scans",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `kind` TEXT NOT NULL, `locationId` INTEGER, `image` TEXT NOT NULL, `modelId` TEXT NOT NULL, `rawResponseJson` TEXT NOT NULL, `createdAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "locationId",
+            "columnName": "locationId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "image",
+            "columnName": "image",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "modelId",
+            "columnName": "modelId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "rawResponseJson",
+            "columnName": "rawResponseJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "paste_log",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `wineId` INTEGER, `rawText` TEXT NOT NULL, `parsedJson` TEXT NOT NULL, `createdAt` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "wineId",
+            "columnName": "wineId",
+            "affinity": "INTEGER"
+          },
+          {
+            "fieldPath": "rawText",
+            "columnName": "rawText",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "parsedJson",
+            "columnName": "parsedJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      },
+      {
+        "tableName": "change_sets",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `kind` TEXT NOT NULL, `label` TEXT NOT NULL, `payloadJson` TEXT NOT NULL, `createdAt` INTEGER NOT NULL, `undone` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "kind",
+            "columnName": "kind",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "label",
+            "columnName": "label",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "payloadJson",
+            "columnName": "payloadJson",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdAt",
+            "columnName": "createdAt",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "undone",
+            "columnName": "undone",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "autoGenerate": true,
+          "columnNames": [
+            "id"
+          ]
+        }
+      }
+    ],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '3ba8c6927b5b507d114cb761074f97e7')"
+    ]
+  }
+}

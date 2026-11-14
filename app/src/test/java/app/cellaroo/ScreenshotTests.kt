@@ -8,6 +8,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.test.onRoot
 import androidx.test.core.app.ApplicationProvider
+import app.cellaroo.ai.currentYear
 import app.cellaroo.core.DrinkWindow
 import app.cellaroo.core.Pairing
 import app.cellaroo.core.PairingTag
@@ -78,7 +79,7 @@ class ScreenshotTests {
             val bottles = List(s.qty) { BottleDraft(shelf, s.price, if (s.price != null) now else null, "Costco", crop, "SCAN") }
             c.repo.addBottles(listOf(AddItem(null, s.draft(), bottles, crop)), "SCAN", "Added ${s.qty} from a photo")
         }
-        val year = app.cellaroo.ai.currentYear()
+        val year = currentYear()
         fun pairings(vararg p: Pair<PairingTag, String>) = encodePairings(p.map { Pairing(it.first, it.second) })
         for (w in c.repo.dao.wines()) {
             val updated = when (w.producer to w.wineName.take(5)) {

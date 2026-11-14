@@ -81,8 +81,10 @@ class ViewModelFlowTest {
         assertEquals(3, plan.matchedCount)
         assertEquals(listOf(luis().bottles.single().id), plan.missing.map { it.bottleId })
         assertEquals(listOf(4), plan.unknown.map { it.index })
-        assertTrue(plan.isClean)
-        assertEquals(MissingAction.DRUNK, vm.defaultMissingAction(plan))
+        // A wine the cellar does not know could be a misread of the missing one, so nothing is assumed drunk.
+        assertFalse(plan.isClean)
+        assertEquals(MissingAction.STILL_HERE, vm.defaultMissingAction(plan))
+        vm.setMissingAction(plan.missing.single().bottleId, MissingAction.DRUNK)
         vm.applyReconcile()
         await("shelf check applied") { vm.scan.value == null && vm.cellar.value.rows.size == 3 }
         assertEquals(0, luis().qty)

@@ -18,7 +18,9 @@ for path in glob.glob("**/build/test-results/**/*.xml", recursive=True):
             if node is not None:
                 failed += 1
                 text = (node.get("message") or "") + "\n" + (node.text or "")
-                lines = [l for l in text.strip().splitlines() if l.strip()][:8]
+                raw = [l for l in text.strip().splitlines() if l.strip()]
+                # The message, then only the stack frames from this project.
+                lines = raw[:2] + [l for l in raw[2:] if "app.cellaroo" in l][:6]
                 failures.append(f"- {case.get('classname')}.{case.get('name')}\n    " + "\n    ".join(l[:300] for l in lines))
 print(f"tests={total} failed={failed} skipped={skipped}")
 for f in failures[:25]:

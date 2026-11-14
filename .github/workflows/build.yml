@@ -60,11 +60,6 @@ jobs:
             :core:test :app:testDebugUnitTest \
             :app:assembleDebug :app:assemblePreview :app:assembleRelease 2>&1 | tee build.log
 
-      - name: Screenshots (never fails the build)
-        if: always() && hashFiles('app/src/test/java/app/cellaroo/ScreenshotTests.kt') != ''
-        continue-on-error: true
-        run: ./gradlew --no-daemon :app:recordRoborazziDebug 2>&1 | tee screenshots.log
-
       - name: Write report to ci-reports
         if: always()
         env:

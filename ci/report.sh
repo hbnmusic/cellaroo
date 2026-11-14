@@ -26,12 +26,6 @@ touch build.log
   echo
   echo "## Log tail"
   tail -30 build.log | cut -c1-400
-  if [ -f screenshots.log ]; then
-    echo
-    echo "## Screenshot task"
-    grep -nE "^e: |FAILED|BUILD|tests completed|What went wrong" screenshots.log | head -40
-    grep -n -A20 "What went wrong" screenshots.log | cut -c1-400 | head -60
-  fi
 } > "$OUT/summary.md" 2>&1
 
 if [ -d app/build/outputs/roborazzi ]; then

@@ -147,6 +147,11 @@ class MainViewModel(app: Application) : AndroidViewModel(app) {
         _events.tryEmit(UiEvent(message, undoId))
     }
 
+    /** Opens a screen by route; "home" returns to the cellar list. */
+    fun navigate(route: String) {
+        _nav.tryEmit(route)
+    }
+
     private fun describe(e: Throwable): String = (e as? GeminiException)?.userMessage ?: (e.message ?: e.javaClass.simpleName)
 
     private fun launchBusy(label: String, block: suspend () -> Unit) {

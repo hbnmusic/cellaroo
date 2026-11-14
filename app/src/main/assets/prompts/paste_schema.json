@@ -1,0 +1,63 @@
+{
+  "type": "OBJECT",
+  "properties": {
+    "identity": {
+      "type": "OBJECT",
+      "nullable": true,
+      "properties": {
+        "producer": {"type": "STRING", "nullable": true},
+        "wine_name": {"type": "STRING", "nullable": true},
+        "appellation_region": {"type": "STRING", "nullable": true},
+        "country": {"type": "STRING", "nullable": true},
+        "vintage": {"type": "INTEGER", "nullable": true},
+        "wine_type": {"type": "STRING", "nullable": true},
+        "primary_grapes": {"type": "ARRAY", "items": {"type": "STRING"}}
+      }
+    },
+    "scores": {
+      "type": "ARRAY",
+      "items": {
+        "type": "OBJECT",
+        "properties": {
+          "source": {"type": "STRING"},
+          "raw": {"type": "STRING"},
+          "score100": {"type": "NUMBER"}
+        },
+        "required": ["source", "raw", "score100"]
+      }
+    },
+    "window": {
+      "type": "OBJECT",
+      "nullable": true,
+      "properties": {
+        "drink_from": {"type": "INTEGER", "nullable": true},
+        "peak_start": {"type": "INTEGER", "nullable": true},
+        "peak_end": {"type": "INTEGER", "nullable": true},
+        "drink_until": {"type": "INTEGER", "nullable": true}
+      }
+    },
+    "market_price": {
+      "type": "OBJECT",
+      "nullable": true,
+      "properties": {
+        "amount": {"type": "NUMBER"},
+        "currency": {"type": "STRING"},
+        "per_bottle": {"type": "BOOLEAN"}
+      }
+    },
+    "reference_notes": {"type": "STRING", "nullable": true},
+    "pairings": {
+      "type": "ARRAY",
+      "items": {
+        "type": "OBJECT",
+        "properties": {
+          "tag": {"type": "STRING"},
+          "dish": {"type": "STRING", "nullable": true}
+        },
+        "required": ["tag"]
+      }
+    },
+    "serving_mode": {"type": "STRING", "nullable": true}
+  },
+  "required": ["scores", "pairings"]
+}

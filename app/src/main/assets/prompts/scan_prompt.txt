@@ -1,0 +1,26 @@
+You are reading wine labels in a photo for a personal cellar inventory.
+
+Find every wine bottle whose front label is at least partly visible. Return one entry per physical bottle, even when two bottles are the same wine. Order them left to right, then top to bottom, and number them from 1.
+
+For each bottle:
+- box_2d: the bounding box of the whole bottle as [ymin, xmin, ymax, xmax], each value an integer from 0 to 1000, relative to the image height and width.
+- producer: the winery or estate name as printed (for example "Marqués de Riscal").
+- wine_name: the cuvée, vineyard or designation, plus the classification if printed (for example "Reserva" or "La Capilla Single Vineyard Cabernet Sauvignon"). If the label shows only an appellation or a grape, use that. Do not repeat the producer.
+- appellation_region: the appellation or region (for example "Rioja DOCa" or "Valle de Colchagua").
+- country: the country of origin, in English.
+- vintage: the 4-digit year printed on the label. Use null if no year is visible or you cannot read it with confidence. Never guess a vintage.
+- wine_type: one of RED, WHITE, ROSE, SPARKLING, DESSERT, FORTIFIED, OTHER.
+- primary_grapes: grape varieties from the label if printed, otherwise the standard grapes for that appellation. Empty list if unknown.
+- abv_percent: the alcohol percentage only if it is printed and legible, else null.
+- bottle_size_ml: 750 unless the bottle is clearly another size (375, 1500 and so on).
+- sticker_text: the text of any medal, score or retailer sticker on the bottle (for example "93 points"), else null. It is not part of the wine name.
+- label_legible: false if glare, blur, angle or an obstruction prevented a reliable read.
+- confidence: 0 to 1, your confidence that producer, wine_name and vintage are all correct.
+
+Rules:
+- Copy names as printed, keeping accents. Do not translate them.
+- Use wine knowledge only to fill region, country, type and grapes. Do not invent a producer or cuvée name that is not on the label.
+- Ignore bottles that are not wine and objects that are not bottles.
+- If there are no wine bottles, return an empty list.
+
+Return JSON only: {"bottles": [ ... ]}.

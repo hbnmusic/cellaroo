@@ -1,0 +1,33 @@
+{
+  "type": "OBJECT",
+  "properties": {
+    "window": {
+      "type": "OBJECT",
+      "properties": {
+        "drink_from": {"type": "INTEGER"},
+        "peak_start": {"type": "INTEGER"},
+        "peak_end": {"type": "INTEGER"},
+        "drink_until": {"type": "INTEGER"}
+      },
+      "required": ["drink_from", "peak_start", "peak_end", "drink_until"]
+    },
+    "serving_mode": {"type": "STRING", "enum": ["SOLO", "FOOD", "EITHER"]},
+    "serving_reason": {"type": "STRING"},
+    "serving_temp_c": {"type": "INTEGER"},
+    "decant_minutes": {"type": "INTEGER"},
+    "pairings": {
+      "type": "ARRAY",
+      "items": {
+        "type": "OBJECT",
+        "properties": {
+          "tag": {"type": "STRING"},
+          "dish": {"type": "STRING"}
+        },
+        "required": ["tag", "dish"]
+      }
+    },
+    "pairing_notes": {"type": "STRING"},
+    "style_summary": {"type": "STRING"}
+  },
+  "required": ["window", "serving_mode", "serving_reason", "serving_temp_c", "decant_minutes", "pairings"]
+}

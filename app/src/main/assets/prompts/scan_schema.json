@@ -1,0 +1,29 @@
+{
+  "type": "OBJECT",
+  "properties": {
+    "bottles": {
+      "type": "ARRAY",
+      "items": {
+        "type": "OBJECT",
+        "properties": {
+          "index": {"type": "INTEGER"},
+          "box_2d": {"type": "ARRAY", "items": {"type": "INTEGER"}},
+          "producer": {"type": "STRING", "nullable": true},
+          "wine_name": {"type": "STRING", "nullable": true},
+          "appellation_region": {"type": "STRING", "nullable": true},
+          "country": {"type": "STRING", "nullable": true},
+          "vintage": {"type": "INTEGER", "nullable": true},
+          "wine_type": {"type": "STRING", "enum": ["RED", "WHITE", "ROSE", "SPARKLING", "DESSERT", "FORTIFIED", "OTHER"]},
+          "primary_grapes": {"type": "ARRAY", "items": {"type": "STRING"}},
+          "abv_percent": {"type": "NUMBER", "nullable": true},
+          "bottle_size_ml": {"type": "INTEGER"},
+          "sticker_text": {"type": "STRING", "nullable": true},
+          "label_legible": {"type": "BOOLEAN"},
+          "confidence": {"type": "NUMBER"}
+        },
+        "required": ["index", "box_2d", "wine_type", "label_legible", "confidence"]
+      }
+    }
+  },
+  "required": ["bottles"]
+}

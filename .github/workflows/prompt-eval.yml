@@ -45,4 +45,7 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
           git commit -q -m "prompt-eval ${GITHUB_SHA:0:8}" || true
-          git push -q origin HEAD:ci-reports
+          for attempt in 1 2 3 4 5; do
+            git pull -q --rebase origin ci-reports && git push -q origin HEAD:ci-reports && break
+            sleep $((RANDOM % 8 + 3))
+          done

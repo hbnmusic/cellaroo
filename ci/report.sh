@@ -42,4 +42,8 @@ git config user.name "github-actions[bot]"
 git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 git add -A
 git commit -q -m "report ${SHA:0:8} (${BUILD_OUTCOME})"
-git push -q origin HEAD:ci-reports
+# Another workflow may push to this branch at the same moment: rebase and retry.
+for attempt in 1 2 3 4 5; do
+  git pull -q --rebase origin ci-reports && git push -q origin HEAD:ci-reports && break
+  sleep $((RANDOM % 8 + 3))
+done

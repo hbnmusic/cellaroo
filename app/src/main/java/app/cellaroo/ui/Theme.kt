@@ -27,7 +27,16 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.Typography
 import androidx.compose.material3.darkColorScheme
+import androidx.compose.foundation.Image
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.produceState
+import androidx.compose.ui.graphics.ImageBitmap
+import androidx.compose.ui.graphics.asImageBitmap
+import android.graphics.BitmapFactory
+import android.util.LruCache
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,7 +52,6 @@ import androidx.compose.ui.unit.sp
 import app.cellaroo.R
 import app.cellaroo.core.Readiness
 import app.cellaroo.core.Source
-import coil3.compose.AsyncImage
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -171,7 +179,7 @@ fun WineThumb(file: File?, width: Dp, height: Dp) {
         contentAlignment = Alignment.Center,
     ) {
         if (file != null) {
-            AsyncImage(model = file, contentDescription = null, contentScale = ContentScale.Crop, modifier = Modifier.size(width, height))
+            LocalImage(file, Modifier.size(width, height), ContentScale.Crop, maxEdge = 480)
         } else {
             Icon(painterResource(R.drawable.ic_glass), contentDescription = null, tint = Palette.Outline)
         }
@@ -259,4 +267,31 @@ fun Dot(color: Color, size: Dp = 10.dp) {
 @Composable
 fun Gap(h: Dp = 8.dp) {
     Spacer(Modifier.height(h))
+}
+
+private val imageCache = LruCache<String, ImageBitmap>(40)
+
+private fun decodeScaled(file: File, maxEdge: Int): ImageBitmap? = try {
+    val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
+    BitmapFactory.decodeFile(file.path, bounds)
+    var sample = 1
+    while (maxOf(bounds.outWidth, bounds.outHeight) / (sample * 2) >= maxEdge) sample *= 2
+    BitmapFactory.decodeFile(file.path, BitmapFactory.Options().apply { inSampleSize = sample })?.asImageBitmap()
+} catch (e: Exception) {
+    null
+}
+
+/** Shows a photo stored inside the app. Decoding happens off the main thread and results are cached. */
+@Composable
+fun LocalImage(file: File?, modifier: Modifier, contentScale: ContentScale, maxEdge: Int = 2048) {
+    val key = file?.let { "${it.path}:${it.lastModified()}:$maxEdge" }
+    val bitmap by produceState<ImageBitmap?>(initialValue = key?.let { imageCache.get(it) }, key) {
+        value = when {
+            file == null || key == null -> null
+            else -> imageCache.get(key) ?: withContext(Dispatchers.IO) { decodeScaled(file, maxEdge) }?.also { imageCache.put(key, it) }
+        }
+    }
+    val b = bitmap
+    if (b != null) Image(bitmap = b, contentDescription = null, modifier = modifier, contentScale = contentScale)
+    else Box(modifier)
 }

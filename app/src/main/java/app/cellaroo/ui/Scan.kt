@@ -84,7 +84,8 @@ import app.cellaroo.core.MatchKind
 import app.cellaroo.core.Resolution
 import app.cellaroo.core.WineType
 import app.cellaroo.data.MissingAction
-import coil3.compose.AsyncImage
+import androidx.activity.compose.BackHandler
+import androidx.compose.foundation.layout.heightIn
 import java.io.File
 
 @Composable
@@ -124,6 +125,10 @@ fun ScanScreen(vm: MainViewModel, nav: NavHostController) {
                     if ((session?.photos?.size ?: 0) > 0) " ${session?.photos?.size} photo(s) so far." else "",
                 "Cancel",
             ) { vm.cancelScan() }
+        }
+        val pending = session?.items?.size ?: 0
+        if (!reconcile && pending > 0) {
+            Banner("The next photo is added to a scan that already has $pending label${if (pending == 1) "" else "s"}.", "Review") { nav.navigate("scanReview") }
         }
         error?.let { msg ->
             Banner(msg, if (vm.canRetryScan) "Retry" else "Dismiss") { if (vm.canRetryScan) vm.retryFailedPhoto() else vm.scanError.value = null }
@@ -264,9 +269,11 @@ private fun FramingGuide(lineup: Boolean) {
 /** A stored photo with numbered outlines. Boxes are [ymin, xmin, ymax, xmax] on a 0–1000 scale. */
 @Composable
 fun PhotoWithBoxes(file: File?, photo: ScanPhoto, items: List<ScanItem>, selected: Int?, onSelect: (Int) -> Unit) {
-    Box(Modifier.fillMaxWidth().aspectRatio(photo.width.toFloat() / photo.height.coerceAtLeast(1)).clip(RoundedCornerShape(12.dp))) {
-        // The box and the image share one aspect ratio, so box coordinates map straight onto the canvas.
-        AsyncImage(model = file, contentDescription = "Scanned photo", contentScale = ContentScale.FillBounds, modifier = Modifier.fillMaxSize())
+    Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+      // Capped in height so a portrait photo leaves room for the cards. The inner box keeps the photo's
+      // aspect ratio, so box coordinates map straight onto the canvas.
+      Box(Modifier.heightIn(max = 460.dp).aspectRatio(photo.width.toFloat() / photo.height.coerceAtLeast(1)).clip(RoundedCornerShape(12.dp))) {
+        LocalImage(file, Modifier.fillMaxSize(), ContentScale.FillBounds)
         Canvas(
             Modifier.fillMaxSize().pointerInput(items) {
                 detectTapGestures { p ->
@@ -301,6 +308,7 @@ fun PhotoWithBoxes(file: File?, photo: ScanPhoto, items: List<ScanItem>, selecte
                 }
             }
         }
+      }
     }
 }
 
@@ -367,6 +375,8 @@ fun ScanReviewScreen(vm: MainViewModel, nav: NavHostController) {
         return
     }
     val total = s.items.filter { it.producer.isNotBlank() || it.wineName.isNotBlank() }.sumOf { it.qty }
+    // Leaving with the system back button discards the scan; "Add another photo" is the way to keep it.
+    BackHandler { vm.cancelScan(); nav.popBackStack() }
     Column(Modifier.fillMaxSize()) {
         ScreenHeader("Review scan", onBack = { vm.cancelScan(); nav.popBackStack() })
         LazyColumn(

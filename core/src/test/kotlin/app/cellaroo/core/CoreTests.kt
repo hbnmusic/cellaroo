@@ -51,6 +51,10 @@ class ReadinessTests {
         assertTrue(TonightRanker.score(closing, 2026, null) > TonightRanker.score(young, 2026, null))
         assertTrue(TonightRanker.score(young, 2026, PairingTag.FRENCH) > TonightRanker.score(young, 2026, PairingTag.THAI))
         assertEquals(0.5, TonightRanker.pairingFit(young, PairingTag.SOLO))
+        // A modest wine in its last year outranks a top-rated wine at peak with years to go.
+        val lastCall = TonightInput(DrinkWindow(2024, null, null, 2027), null, null, emptySet())
+        val star = TonightInput(DrinkWindow(2022, 2024, 2030, 2034), 98.0, ServingMode.EITHER, emptySet())
+        assertTrue(TonightRanker.score(lastCall, 2026, null) > TonightRanker.score(star, 2026, null))
         assertFalse(TonightRanker.isCandidate(DrinkWindow(from = 2030), 2026))
         assertTrue(TonightRanker.isCandidate(DrinkWindow(until = 2030), 2026))
     }

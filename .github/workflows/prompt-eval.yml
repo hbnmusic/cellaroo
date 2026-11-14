@@ -1,0 +1,48 @@
+name: prompt-eval
+
+# Sends the sample photos and pasted texts to Gemini with the app's own prompts.
+# Runs by hand, or when prompts, samples or the trigger file change. Needs the GEMINI_API_KEY_CI secret.
+on:
+  workflow_dispatch:
+    inputs:
+      models:
+        description: "Comma-separated Gemini model ids"
+        default: "gemini-3.5-flash,gemini-2.5-flash"
+  push:
+    branches: [main]
+    paths:
+      - "samples/**"
+      - "app/src/main/assets/prompts/**"
+      - "ci/prompt_eval.py"
+      - "ci/prompt-eval.trigger"
+
+permissions:
+  contents: write
+
+jobs:
+  eval:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: ci-reports
+          path: _reports
+      - run: pip install --quiet pillow
+      - name: Run prompts
+        env:
+          GEMINI_API_KEY_CI: ${{ secrets.GEMINI_API_KEY_CI }}
+          MODELS: ${{ inputs.models || 'gemini-3.5-flash,gemini-2.5-flash' }}
+        run: python3 ci/prompt_eval.py "_reports/prompt-eval/${GITHUB_SHA}"
+      - name: Publish report
+        if: always()
+        run: |
+          cd _reports
+          rm -rf prompt-eval/latest && cp -r "prompt-eval/${GITHUB_SHA}" prompt-eval/latest || true
+          ls -1t prompt-eval | grep -v latest | tail -n +4 | while read -r d; do rm -rf "prompt-eval/$d"; done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "prompt-eval ${GITHUB_SHA:0:8}" || true
+          git push -q origin HEAD:ci-reports

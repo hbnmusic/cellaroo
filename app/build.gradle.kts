@@ -139,7 +139,6 @@ dependencies {
     implementation(libs.camera.compose)
 
     implementation(libs.work.runtime.ktx)
-    implementation(libs.coil.compose)
     implementation(libs.okhttp)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.kotlinx.coroutines.android)

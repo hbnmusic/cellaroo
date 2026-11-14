@@ -84,14 +84,15 @@ object TonightRanker {
         else -> 0.0
     }
 
-    /** 0–100. Higher means open it sooner. */
+    /** Higher means open it sooner. Wines whose window is about to close always outrank the rest. */
     fun score(input: TonightInput, year: Int, chip: PairingTag?): Double {
         val w = input.window
         val yearsLeft = ((w.until ?: (year + 10)) - year).toDouble()
         val urgency = (1.0 - yearsLeft / 10.0).coerceIn(0.0, 1.0)
         val peak = if (ReadinessCalc.readiness(w, year) == Readiness.AT_PEAK) 1.0 else 0.5
         val quality = (((input.quality100 ?: 88.0) - 85.0) / 15.0).coerceIn(0.0, 1.0)
-        return 40 * urgency + 25 * peak + 20 * quality + 15 * pairingFit(input, chip)
+        val closing = if (ReadinessCalc.windowClosing(w, year)) 30.0 else 0.0
+        return 40 * urgency + 25 * peak + 20 * quality + 15 * pairingFit(input, chip) + closing
     }
 }
 
